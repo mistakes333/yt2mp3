@@ -132,8 +132,19 @@
 
       return (match && match[7]?.length === 11) ? match[7] : false;
     }
+   const apiKeys = [
+  '0649dc83c2msh88ac949854b30c2p1f2fe8jsn871589450eb3',
+  '0e88d5d689msh145371e9bc7d2d8p17eebejsn8ff825d6291f',
+];
 
+let currentKeyIndex = 0;
+
+function getNextApiKey() {
+  currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
+  return apiKeys[currentKeyIndex];
+}
     function handleSubmit() {
+      const apiKey = getNextApiKey();
       const inputUrl = document.getElementById('inputUrl').value;
       const youtubeID = youtube_parser(inputUrl);
 
@@ -149,7 +160,7 @@
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': '0649dc83c2msh88ac949854b30c2p1f2fe8jsn871589450eb3',
+          'X-RapidAPI-Key': apiKey,
           'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com',
         },
       };
